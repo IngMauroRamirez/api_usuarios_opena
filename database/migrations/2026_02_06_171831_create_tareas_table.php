@@ -21,7 +21,7 @@ return new class extends Migration
                 ->cascadeOnDelete();
             $table->string('titulo');
             $table->text('descripcion')->nullable();
-            $table->decimal('horas', 8, 2);
+            $table->decimal('horas', 8, 0);
             $table->timestamps();
         });
     }

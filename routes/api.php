@@ -2,9 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/test', function () {
-    return response()->json([
-        'status' => 'ok',
-        'message' => 'API funcionando'
-    ]);
-});
+use App\Http\Controllers\Api\UsuarioTareaController;
+
+Route::get('/usuarios/{usuario}/tareas', [UsuarioTareaController::class, 'mostrar_tareas_json']);

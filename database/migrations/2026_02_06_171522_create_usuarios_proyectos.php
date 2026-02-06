@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('proyecto_id')
                 ->constrained('proyectos')
                 ->cascadeOnDelete();
-            $table->decimal('tarifa', 10, 2);
+            $table->decimal('tarifa', 10, 0);
             $table->timestamps();
             $table->unique(['usuario_id', 'proyecto_id']);
         });
