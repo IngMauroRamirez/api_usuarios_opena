@@ -20,8 +20,8 @@ class User extends Authenticatable
     ];
 
     /**
-     * Creamos la relacion 1:N que un usuario puede estar en muchos proyectos
-     * y además se intuye que un proyecto puede tener muchos usuarios
+     * Creamos la relacion N:N que un usuario puede estar en muchos proyectos
+     * y además que un proyecto puede tener muchos usuarios
      */
     public function proyectos(): BelongsToMany
     {
