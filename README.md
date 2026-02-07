@@ -1,59 +1,109 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Prueba Técnica - API REST Usuarios
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Autor
 
-## About Laravel
+- Nombre: Mauro Estefan Ramírez Aranguren
+- Correo: mauroeramirez140395@outlook.com
+- GitHub: [https://github.com/IngMauroRamirez](https://github.com/IngMauroRamirez)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Descripción
+Este proyecto corresponde a una prueba técnica desarrollada con **Laravel, MySQL**, cuyo objetivo es:
+- Implementar una base de datos para almacenar información sobre usuarios, proyectos, tareas y tarifas, donde un usuario puede pertenecer a múltiples proyectos y fijar una tarifa diferente para cada uno, y registrar múltiples tareas en los proyectos.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Construir una API REST que permita obtener el listado de tareas de un usuario, con su respectivo proyecto y valor.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Construir una vista web donde se pueda visualizar el listado de tareas del punto anterior.
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## Tecnologías empleadas
+- Laravel 10+
+- MySQL
+- Blade
+- Git & GitHub
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
+## Instalación y Ejecución Local
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Clonar el repositorio y acceder a la carpeta del proyecto.
 
-### Premium Partners
+```bash
+git clone https://github.com/IngMauroRamirez/api_usuarios_opena.git
+cd api_usuarios_opena
+```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## Instalar las dependencias del proyecto usando Composer: 
 
-## Contributing
+```bash
+composer install
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+# Configuración Base de Datos
 
-## Code of Conduct
+Crear la base de datos
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+CREATE DATABASE api_usuarios_opena;
+```
 
-## Security Vulnerabilities
+Editar el archivo .env e ingresar el nombre de la base de datos así
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+DB_DATABASE=api_usuarios_opena
+```
 
-## License
+Ejecutar las migraciones
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+php artisan migrate
+```
+
+## Levantar el servidor de desarrollo
+
+```bash
+php artisan serve
+```
+
+## DOCUMENTACIÓN:
+
+## Relaciones entre tablas
+
+### usuarios -> proyectos: N:N
+
+- Un usuario puede estar en muchos proyectos
+- Un proyceto puede tener muchos usuarios
+
+Se crea la tabla pivote **usuarios_proyectos** y aquí va el valor de la tarifa ya que no pertence solo al usuairo o al proyecto sino a la relación entre ambos.
+
+### usuarios -> tareas: 1:N
+- Un usuario puede registrar muchas tareas
+- Cada tarea pertenece a un solo usuario
+
+### proyectos -> tareas: 1:N
+- Un proyecto puede tener muchas tareas
+- Cada tarea pertenece a un solo proyecto
+
+
+## ENDPOINT PARA API REST
+
+- url /api/usuarios/{id_usuario}/tareas
+
+Donde {id_usuario} es el id de cada usuario a consultar por GET
+
+- Retorna la información en formato JSON en donde se calcula además el valor usando la ecuación valor = horas * tarifa
+
+## VISTA WEB (blade)
+
+- url usuarios/{id_usuario}/tareas
+
+Donde {id_usuario} es el id de cada usuario a consultar por GET
+
+- Retorna la información mediante el llamado de una vista (blade) en donde se calcula además el valor usando la ecuación valor = horas * tarifa. Finalmente toda la información se muestra en una tabla ordenada.
+
+
+## Separación API / Web
+
+- Uso correcto de relaciones Eloquent
+- Tabla pivot para datos de relación
+- Cálculos derivados en backend
+- .gitignore seguro (no se sube .env, vendor, node_modules)
